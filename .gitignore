@@ -1,0 +1,18 @@
+# Folder
+.vscode/
+.vs/
+dist/
+
+# Test
+test.*
+*.log
+*.bin
+
+# Build
+*.a
+*.o
+*.obj
+*.vcxproj.user
+*.dll
+*.exe
+*.gch
