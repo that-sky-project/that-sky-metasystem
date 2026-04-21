@@ -87,6 +87,38 @@ public:
 };
 
 // ----------------------------------------------------------------------------
+// [SECTION] utils/proxyMetaSystem
+// ----------------------------------------------------------------------------
+
+class ProxyMetaSystemDataContainer: public MetaSystemDataContainer {
+public:
+  ProxyMetaSystemDataContainer() = default;
+  ~ProxyMetaSystemDataContainer() = default;
+
+  ProxyMetaSystemDataContainer &operator=(const MetaSystemDataContainer &);
+
+  u32 m_count;
+  u32 m_maxClasses;
+};
+
+class ProxyMetaSystem {
+public:
+  static ProxyMetaSystem *create(
+    u32 maxClasses = 0x100000);
+
+  ProxyMetaSystem() = default;
+  ~ProxyMetaSystem() = default;
+  
+  void set(
+    const MetaSystem *p,
+    u32 count);
+
+  u32 m_metaClassId;
+  ProxyMetaSystemDataContainer *m_data;
+  const MetaClass *m_classes[];
+};
+
+// ----------------------------------------------------------------------------
 // [SECTION] utils/globals
 // ----------------------------------------------------------------------------
 
