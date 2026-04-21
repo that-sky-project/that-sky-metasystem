@@ -1,1 +1,15 @@
-{ }
+{
+  "package_name": "that-sky-metasystem",
+  "version": "1.0.0",
+  "game_edition": 2,
+  "mod_name": "That Sky MetaSystem",
+  "description": "Sky:CotL MetaSystem dump.",
+  "main": "that-sky-metasystem.dll",
+  "dependencies": {
+    "htmodloader": ">=1.9.0"
+  },
+  "keywords": [],
+  "author": "HTMonkeyG",
+  "license": "MIT",
+  "website": ""
+}
