@@ -10,9 +10,6 @@
     <Filter Include="src\sky">
       <UniqueIdentifier>{54001436-4119-48a2-9990-37525b482f87}</UniqueIdentifier>
     </Filter>
-    <Filter Include="engine">
-      <UniqueIdentifier>{70a544ea-aae0-4185-bded-f269c9d04b56}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\internal.hpp">
@@ -43,18 +40,6 @@
     </ClCompile>
     <ClCompile Include="src\sky\override.cpp">
       <Filter>src\sky</Filter>
-    </ClCompile>
-    <ClCompile Include="src\sky\stlAllocator.cpp">
-      <Filter>src\sky</Filter>
-    </ClCompile>
-    <ClCompile Include="libraries\that-sky-engine\src\Code\Base\Assert.cpp">
-      <Filter>engine</Filter>
-    </ClCompile>
-    <ClCompile Include="libraries\that-sky-engine\src\Code\Base\LuaInterface.cpp">
-      <Filter>engine</Filter>
-    </ClCompile>
-    <ClCompile Include="libraries\that-sky-engine\src\Code\Base\Meta.cpp">
-      <Filter>engine</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

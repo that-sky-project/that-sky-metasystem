@@ -8,6 +8,7 @@
 #include <sstream>
 #include "includes/htmodloader.h"
 #include "Meta.hpp"
+#include "StlAllocator.hpp"
 
 // ----------------------------------------------------------------------------
 // [SECTION] utils/typeAliases
@@ -144,10 +145,5 @@ HTStatus createHookAndEnable(
   const HTAsmSig *sigXX,
   HTAsmFunction *sfn);
 }
-
-void *operator new(std::size_t _Size);
-void *operator new[](std::size_t _Size);
-void operator delete(void *_Block) noexcept;
-void operator delete[](void *_Block) noexcept;
 
 #endif

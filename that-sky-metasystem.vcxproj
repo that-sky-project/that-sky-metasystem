@@ -22,9 +22,6 @@
     <ClInclude Include="src\internal.hpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="libraries\that-sky-engine\src\Code\Base\Assert.cpp" />
-    <ClCompile Include="libraries\that-sky-engine\src\Code\Base\LuaInterface.cpp" />
-    <ClCompile Include="libraries\that-sky-engine\src\Code\Base\Meta.cpp" />
     <ClCompile Include="src\classes\metaClass.cpp" />
     <ClCompile Include="src\classes\proxyMetaSystem.cpp" />
     <ClCompile Include="src\classes\realMetaSystem.cpp" />
@@ -33,7 +30,6 @@
     <ClCompile Include="src\sky\fakeMetaSystem.cpp" />
     <ClCompile Include="src\sky\getMetaClassByName.cpp" />
     <ClCompile Include="src\sky\override.cpp" />
-    <ClCompile Include="src\sky\stlAllocator.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>
@@ -135,8 +131,8 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>htmodloader.lib;lua.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(ProjectDir)libraries\htmodloader\lib;$(ProjectDir)libraries\that-sky-engine\project\vs\lua\dist</AdditionalLibraryDirectories>
+      <AdditionalDependencies>htmodloader.lib;lua.lib;that-sky-engine.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(ProjectDir)libraries\htmodloader\lib;$(ProjectDir)libraries\that-sky-engine\project\vs\lua\dist;$(ProjectDir)libraries\that-sky-engine\project\vs\that-sky-engine\dist;$(ProjectDir)libraries\that-sky-engine\project\vs\dlmalloc\dist</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -171,8 +167,8 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>htmodloader.lib;lua.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(ProjectDir)libraries\htmodloader\lib;$(ProjectDir)libraries\that-sky-engine\project\vs\lua\dist</AdditionalLibraryDirectories>
+      <AdditionalDependencies>htmodloader.lib;lua.lib;that-sky-engine.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(ProjectDir)libraries\htmodloader\lib;$(ProjectDir)libraries\that-sky-engine\project\vs\lua\dist;$(ProjectDir)libraries\that-sky-engine\project\vs\that-sky-engine\dist;$(ProjectDir)libraries\that-sky-engine\project\vs\dlmalloc\dist</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
