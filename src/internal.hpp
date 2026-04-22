@@ -142,4 +142,9 @@ HTStatus createHookAndEnable(
   HTAsmFunction *sfn);
 }
 
+void *operator new(std::size_t _Size);
+void *operator new[](std::size_t _Size);
+void operator delete(void *_Block) noexcept;
+void operator delete[](void *_Block) noexcept;
+
 #endif

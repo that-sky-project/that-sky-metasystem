@@ -30,6 +30,7 @@
     <ClCompile Include="src\sky\fakeMetaSystem.cpp" />
     <ClCompile Include="src\sky\getMetaClassByName.cpp" />
     <ClCompile Include="src\sky\override.cpp" />
+    <ClCompile Include="src\sky\stlAllocator.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>
@@ -126,6 +127,7 @@
       <PrecompiledHeaderOutputFile />
       <EnableEnhancedInstructionSet>AdvancedVectorExtensions2</EnableEnhancedInstructionSet>
       <AdditionalIncludeDirectories>$(projectDir)libraries\htmodloader\includes\htmodloader\;$(projectDir)libraries\that-sky-engine\src\Code\Base\;$(projectDir)libraries\that-sky-engine\\libraries\lua\;$(projectDir)\src\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -161,6 +163,7 @@
       <PrecompiledHeaderOutputFile />
       <EnableEnhancedInstructionSet>AdvancedVectorExtensions2</EnableEnhancedInstructionSet>
       <AdditionalIncludeDirectories>$(projectDir)libraries\htmodloader\includes\htmodloader\;$(projectDir)libraries\that-sky-engine\src\Code\Base\;$(projectDir)libraries\that-sky-engine\\libraries\lua\;$(projectDir)\src\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>

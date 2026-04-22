@@ -41,5 +41,8 @@
     <ClCompile Include="src\sky\override.cpp">
       <Filter>src\sky</Filter>
     </ClCompile>
+    <ClCompile Include="src\sky\stlAllocator.cpp">
+      <Filter>src\sky</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

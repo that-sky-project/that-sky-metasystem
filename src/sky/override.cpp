@@ -1,4 +1,5 @@
 #include "internal.hpp"
+#include <errno.h>
 
 typedef void (__fastcall *PFN_Game_Alloc)(
   Game *);
@@ -86,9 +87,18 @@ static void hook_Game_Alloc(
     reinterpret_cast<const MetaSystem *>(gMetaSystem),
     classCount);
   HTTellText(
-    "§a[ThatSkyMetaSystem] MetaClass overriden: %p -> %p",
+    "§a[ThatSkyMetaSystem] MetaSystem overriden: %p -> %p",
     *ppGameMetaSystem,
     gProxyMetaSystem);
+
+  const MetaSystem *old = reinterpret_cast<const MetaSystem *>(*ppGameMetaSystem);
+
+  HTTellText("§a[ThatSkyMetaSystem] Destroying previous.....");
+  // Call destructor of MetaStrMap.
+  delete old->m_data;
+  // Directly free the memory.
+  operator delete((void *)old);
+
   *ppGameMetaSystem = gProxyMetaSystem;
 
   ((PFN_Game_Alloc)sfn_Game_Alloc.origin)(self);
