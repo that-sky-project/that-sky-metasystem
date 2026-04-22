@@ -37,4 +37,35 @@ void ProxyMetaSystem::set(
 
   // Actually we don't know how many classes we need to copy at compile time.
   memcpy(m_classes, (const void *)p->m_classes, count * sizeof(const MetaClass *));
+
+  m_data->m_count = count;
+}
+
+bool ProxyMetaSystem::addClass(
+  MetaClass *clazz
+) {
+  if (!m_data)
+    return false;
+
+  if (m_data->m_metaTypes.find(clazz->m_name) != m_data->m_metaTypes.end())
+    return false;
+
+  if (!clazz->AsClass())
+    return false;
+
+  char *name = new char[strlen(clazz->m_name) + 1];
+  strcpy(name, clazz->m_name);
+
+  auto *mc = (MetaClass *)clazz->Copy();
+  mc->m_name = name;
+  mc->m_self = clazz->m_self = mc;
+  mc->m_globalId = m_data->m_count++;
+  if (mc->m_metaDataContainer)
+    delete mc->m_metaDataContainer;
+  mc->m_metaDataContainer = new MetaDataContainer();
+
+  m_classes[mc->m_globalId] = mc;
+
+  m_data->m_metaTypes[clazz->m_name] = mc;
+  m_data->m_metaClasses[clazz->m_name] = mc;
 }

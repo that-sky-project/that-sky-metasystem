@@ -4,6 +4,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 17.14.37203.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "that-sky-metasystem", "that-sky-metasystem.vcxproj", "{846AD47E-029D-4E6D-AE9E-A674CB60649F}"
+	ProjectSection(ProjectDependencies) = postProject
+		{846868FC-4C2D-4959-B8FA-B55456F50394} = {846868FC-4C2D-4959-B8FA-B55456F50394}
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "lua", "libraries\that-sky-engine\project\vs\lua\lua.vcxproj", "{846868FC-4C2D-4959-B8FA-B55456F50394}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +26,14 @@ Global
 		{846AD47E-029D-4E6D-AE9E-A674CB60649F}.Release|x64.Build.0 = Release|x64
 		{846AD47E-029D-4E6D-AE9E-A674CB60649F}.Release|x86.ActiveCfg = Release|Win32
 		{846AD47E-029D-4E6D-AE9E-A674CB60649F}.Release|x86.Build.0 = Release|Win32
+		{846868FC-4C2D-4959-B8FA-B55456F50394}.Debug|x64.ActiveCfg = Release|x64
+		{846868FC-4C2D-4959-B8FA-B55456F50394}.Debug|x64.Build.0 = Release|x64
+		{846868FC-4C2D-4959-B8FA-B55456F50394}.Debug|x86.ActiveCfg = Release|x64
+		{846868FC-4C2D-4959-B8FA-B55456F50394}.Debug|x86.Build.0 = Release|x64
+		{846868FC-4C2D-4959-B8FA-B55456F50394}.Release|x64.ActiveCfg = Release|x64
+		{846868FC-4C2D-4959-B8FA-B55456F50394}.Release|x64.Build.0 = Release|x64
+		{846868FC-4C2D-4959-B8FA-B55456F50394}.Release|x86.ActiveCfg = Release|x64
+		{846868FC-4C2D-4959-B8FA-B55456F50394}.Release|x86.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

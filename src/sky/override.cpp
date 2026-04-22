@@ -53,6 +53,12 @@ static HTAsmFunction sfn_GetMetaClassByName{
   nullptr
 };
 
+class HTMonkeyG_Class {
+  int aaa;
+};
+
+META_REGISTER_CLASS(HTMonkeyG_Class);
+
 static void hook_Game_Alloc(
   Game *self
 ) {
@@ -65,7 +71,7 @@ static void hook_Game_Alloc(
 
   const MetaClass *pmcMetaSystem = itMetaSystem->second;
   size_t sizeMetaSystem = pmcMetaSystem->SizeOfObject();
-  u32 classCount = (sizeMetaSystem - sizeof(FakeMetaSystem)) / 8;
+  u32 classCount = (sizeMetaSystem - sizeof(FakeMetaSystem)) / sizeof(const MetaClass *);
 
   // Resolve Game.metaSystem.
   const auto &itGame = classes.find("Game");
@@ -82,6 +88,7 @@ static void hook_Game_Alloc(
   const MetaMemberVariable *pmmvMetaSystem = itVars->second;
   ProxyMetaSystem **ppGameMetaSystem = (ProxyMetaSystem **)((char *)self + pmmvMetaSystem->m_offsetOf);
 
+  // Create ProxyMetaSystem from MetaSystem.
   gProxyMetaSystem = ProxyMetaSystem::create();
   gProxyMetaSystem->set(
     reinterpret_cast<const MetaSystem *>(gMetaSystem),
@@ -90,6 +97,10 @@ static void hook_Game_Alloc(
     "§a[ThatSkyMetaSystem] MetaSystem overriden: %p -> %p",
     *ppGameMetaSystem,
     gProxyMetaSystem);
+  HTTellText(
+    "§e[ThatSkyMetaSystem] Copied %u classes of %llu classes",
+    gProxyMetaSystem->m_data->m_count,
+    gProxyMetaSystem->m_data->m_metaClasses.size());
 
   const MetaSystem *old = reinterpret_cast<const MetaSystem *>(*ppGameMetaSystem);
 
@@ -100,6 +111,8 @@ static void hook_Game_Alloc(
   operator delete((void *)old);
 
   *ppGameMetaSystem = gProxyMetaSystem;
+
+  gProxyMetaSystem->addClass(MetaClassImpl<HTMonkeyG_Class>::Must_call_META_REGISTER_CLASS());
 
   ((PFN_Game_Alloc)sfn_Game_Alloc.origin)(self);
 }

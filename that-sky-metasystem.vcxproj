@@ -22,6 +22,9 @@
     <ClInclude Include="src\internal.hpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="libraries\that-sky-engine\src\Code\Base\Assert.cpp" />
+    <ClCompile Include="libraries\that-sky-engine\src\Code\Base\LuaInterface.cpp" />
+    <ClCompile Include="libraries\that-sky-engine\src\Code\Base\Meta.cpp" />
     <ClCompile Include="src\classes\metaClass.cpp" />
     <ClCompile Include="src\classes\proxyMetaSystem.cpp" />
     <ClCompile Include="src\classes\realMetaSystem.cpp" />
@@ -119,7 +122,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <LanguageStandard_C>stdc11</LanguageStandard_C>
@@ -132,8 +135,8 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>htmodloader.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(ProjectDir)libraries\htmodloader\lib</AdditionalLibraryDirectories>
+      <AdditionalDependencies>htmodloader.lib;lua.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(ProjectDir)libraries\htmodloader\lib;$(ProjectDir)libraries\that-sky-engine\project\vs\lua\dist</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -155,7 +158,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <LanguageStandard_C>stdc11</LanguageStandard_C>
@@ -168,8 +171,8 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>htmodloader.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(ProjectDir)libraries\htmodloader\lib</AdditionalLibraryDirectories>
+      <AdditionalDependencies>htmodloader.lib;lua.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(ProjectDir)libraries\htmodloader\lib;$(ProjectDir)libraries\that-sky-engine\project\vs\lua\dist</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

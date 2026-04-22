@@ -112,6 +112,9 @@ public:
 
   ProxyMetaSystem() = default;
   ~ProxyMetaSystem() = default;
+
+  bool addClass(
+    MetaClass *clazz);
   
   void set(
     const MetaSystem *p,
