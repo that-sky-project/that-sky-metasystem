@@ -13,6 +13,8 @@
 // [SECTION] utils/typeAliases
 // ----------------------------------------------------------------------------
 
+#pragma warning(disable: 4200)
+
 #define i08 char
 #define u08 unsigned char
 #define i16 short
@@ -28,6 +30,8 @@
 using TgcString = std::string;
 using TgcWString = std::wstring;
 using cstring = const char *;
+
+typedef void *Game;
 
 // ----------------------------------------------------------------------------
 // [SECTION] utils/realMetaSystem
@@ -118,11 +122,24 @@ public:
   const MetaClass *m_classes[];
 };
 
+namespace MetaSystemOverride {
+void initialize();
+}
+
 // ----------------------------------------------------------------------------
 // [SECTION] utils/globals
 // ----------------------------------------------------------------------------
 
 extern HMODULE hModuleDll;
 extern RealMetaSystem gRealMetaSystem;
+extern FakeMetaSystem *gMetaSystem;
+extern ProxyMetaSystem *gProxyMetaSystem;
+extern Game *gGame;
+
+namespace HTModLoader {
+HTStatus createHookAndEnable(
+  const HTAsmSig *sigXX,
+  HTAsmFunction *sfn);
+}
 
 #endif

@@ -23,11 +23,13 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\classes\metaClass.cpp" />
+    <ClCompile Include="src\classes\proxyMetaSystem.cpp" />
     <ClCompile Include="src\classes\realMetaSystem.cpp" />
     <ClCompile Include="src\dllmain.cpp" />
     <ClCompile Include="src\mod.cpp" />
     <ClCompile Include="src\sky\fakeMetaSystem.cpp" />
     <ClCompile Include="src\sky\getMetaClassByName.cpp" />
+    <ClCompile Include="src\sky\override.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>

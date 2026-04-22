@@ -23,10 +23,10 @@ static void hook_MetaSystem_Initialize(
 ) {
   ((PFN_MetaSystem_Initialize)sfn_MetaSystem_Initialize.origin)(self);
 
+  gMetaSystem = self;
   gRealMetaSystem.initialize(self);
 
   return;
-
   std::ostringstream oss;
   gRealMetaSystem.dumpTree(oss);
 

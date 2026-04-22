@@ -11,6 +11,7 @@ ProxyMetaSystemDataContainer &ProxyMetaSystemDataContainer::operator=(
   unk_6 = rhs.unk_6;
   unk_7 = rhs.unk_7;
   unk_8 = rhs.unk_8;
+  return *this;
 }
 
 ProxyMetaSystem *ProxyMetaSystem::create(

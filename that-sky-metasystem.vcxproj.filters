@@ -35,5 +35,11 @@
     <ClCompile Include="src\classes\realMetaSystem.cpp">
       <Filter>src\classes</Filter>
     </ClCompile>
+    <ClCompile Include="src\classes\proxyMetaSystem.cpp">
+      <Filter>src\classes</Filter>
+    </ClCompile>
+    <ClCompile Include="src\sky\override.cpp">
+      <Filter>src\sky</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
