@@ -26,6 +26,9 @@ ProxyMetaSystem *ProxyMetaSystem::create(
   new (pMetaSystem) ProxyMetaSystem();
   pMetaSystem->m_data = pData;
 
+  for (u32 i = 0; i < maxClasses; i++)
+    pMetaSystem->m_classes[i] = GetMetaClass();
+
   return pMetaSystem;
 }
 
@@ -47,8 +50,24 @@ bool ProxyMetaSystem::addClass(
   if (!m_data)
     return false;
 
-  if (m_data->m_metaTypes.find(clazz->m_name) != m_data->m_metaTypes.end())
-    return false;
+  // To make it easier for a mod to register metaclasses for its dependencies,
+  // we stipulate: if a metaclass with the same name already exists in the registry,
+  // only set the input metaclass's m_self. Since almost all metaclass operations
+  // must be performed via Must_call_META_REGISTER_CLASS or GetMetaClassByType
+  // (i.e., through m_self), all metaclass operations can be forwarded to the
+  // existing metaclass.
+  // 
+  // Furthermore, because a dependent module is always loaded after its dependency,
+  // and a child class is always loaded after its parent class, this initialization
+  // process is guaranteed to be stable.
+  // 
+  // Thus, an external module only needs to declare an "empty" metaclass with the
+  // same name to use the metaclass of its dependency.
+  const auto &itClass = m_data->m_metaTypes.find(clazz->m_name);
+  if (itClass != m_data->m_metaTypes.end()) {
+    clazz->m_self = itClass->second;
+    return true;
+  }
 
   if (!clazz->AsClass())
     return false;
@@ -68,4 +87,6 @@ bool ProxyMetaSystem::addClass(
 
   m_data->m_metaTypes[clazz->m_name] = mc;
   m_data->m_metaClasses[clazz->m_name] = mc;
+
+  return true;
 }

@@ -20,6 +20,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\internal.hpp" />
+    <ClInclude Include="src\proto\proto.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\classes\metaClass.cpp" />
@@ -27,6 +28,7 @@
     <ClCompile Include="src\classes\realMetaSystem.cpp" />
     <ClCompile Include="src\dllmain.cpp" />
     <ClCompile Include="src\mod.cpp" />
+    <ClCompile Include="src\proto\event.cpp" />
     <ClCompile Include="src\sky\fakeMetaSystem.cpp" />
     <ClCompile Include="src\sky\getMetaClassByName.cpp" />
     <ClCompile Include="src\sky\override.cpp" />
@@ -125,7 +127,7 @@
       <PrecompiledHeaderFile />
       <PrecompiledHeaderOutputFile />
       <EnableEnhancedInstructionSet>AdvancedVectorExtensions2</EnableEnhancedInstructionSet>
-      <AdditionalIncludeDirectories>$(projectDir)libraries\htmodloader\includes\htmodloader\;$(projectDir)libraries\that-sky-engine\src\Code\Base\;$(projectDir)libraries\that-sky-engine\\libraries\lua\;$(projectDir)\src\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(projectDir)libraries\htmodloader\includes\htmodloader\;$(projectDir)libraries\that-sky-engine\src\Code\Base\;$(projectDir)libraries\that-sky-engine\\libraries\lua\;$(projectDir)\src\;$(projectDir)\src\proto;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
     </ClCompile>
     <Link>
@@ -161,7 +163,7 @@
       <PrecompiledHeaderFile />
       <PrecompiledHeaderOutputFile />
       <EnableEnhancedInstructionSet>AdvancedVectorExtensions2</EnableEnhancedInstructionSet>
-      <AdditionalIncludeDirectories>$(projectDir)libraries\htmodloader\includes\htmodloader\;$(projectDir)libraries\that-sky-engine\src\Code\Base\;$(projectDir)libraries\that-sky-engine\\libraries\lua\;$(projectDir)\src\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(projectDir)libraries\htmodloader\includes\htmodloader\;$(projectDir)libraries\that-sky-engine\src\Code\Base\;$(projectDir)libraries\that-sky-engine\\libraries\lua\;$(projectDir)\src\;$(projectDir)\src\proto;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
     </ClCompile>
     <Link>

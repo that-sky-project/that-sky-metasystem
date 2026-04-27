@@ -1,5 +1,27 @@
-#include "internal.hpp"
 #include <errno.h>
+#include "internal.hpp"
+#include "proto.hpp"
+
+class HTFakeEvent;
+META_DECLARE_CLASS(HTFakeEvent);
+
+class HTFakeEvent: public Event {
+public:
+  HTFakeEvent() {
+    m_metaClassId = MetaClassImpl<HTFakeEvent>::Must_call_META_REGISTER_CLASS()->m_globalId;
+  }
+
+  virtual void OnStart(void *) override {
+    HTTellText("aaa");
+  }
+
+  virtual void Update(void *) override {
+    HTTellText("update...");
+  }
+};
+
+META_REGISTER_CLASS(HTFakeEvent);
+
 
 typedef void (__fastcall *PFN_Game_Alloc)(
   Game *);
@@ -59,6 +81,8 @@ class HTMonkeyG_Class {
 
 META_REGISTER_CLASS(HTMonkeyG_Class);
 
+MetaClass *gEventClass = nullptr;
+
 static void hook_Game_Alloc(
   Game *self
 ) {
@@ -112,7 +136,19 @@ static void hook_Game_Alloc(
 
   *ppGameMetaSystem = gProxyMetaSystem;
 
-  gProxyMetaSystem->addClass(MetaClassImpl<HTMonkeyG_Class>::Must_call_META_REGISTER_CLASS());
+  {
+    // - Try to register a new event.
+    const auto &itEvent = gProxyMetaSystem->m_data->m_metaClasses.find("Event");
+    static auto eventClass = itEvent->second;
+    auto pmcEvent = MetaClassImpl<HTFakeEvent>::Must_call_META_REGISTER_CLASS();
+    pmcEvent->m_parent = []() -> MetaClass * {
+      return eventClass;
+    };
+    pmcEvent->m_topoOrder = 9000;
+    pmcEvent->m_baseTopoIdList = eventClass->m_baseTopoIdList;
+    pmcEvent->m_baseTopoIdList.push_back(eventClass->m_topoOrder);
+    gProxyMetaSystem->addClass(pmcEvent);
+  }
 
   ((PFN_Game_Alloc)sfn_Game_Alloc.origin)(self);
 }

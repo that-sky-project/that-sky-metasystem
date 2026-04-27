@@ -10,10 +10,16 @@
     <Filter Include="src\sky">
       <UniqueIdentifier>{54001436-4119-48a2-9990-37525b482f87}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\proto">
+      <UniqueIdentifier>{dd17c2cd-781a-47cf-b867-c09e925867e6}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\internal.hpp">
       <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\proto\proto.hpp">
+      <Filter>src\proto</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -40,6 +46,9 @@
     </ClCompile>
     <ClCompile Include="src\sky\override.cpp">
       <Filter>src\sky</Filter>
+    </ClCompile>
+    <ClCompile Include="src\proto\event.cpp">
+      <Filter>src\proto</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
