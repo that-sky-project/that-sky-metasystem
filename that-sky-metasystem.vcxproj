@@ -22,9 +22,11 @@
     <ClInclude Include="src\internal.hpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\classes\metaClass.cpp" />
     <ClCompile Include="src\classes\realMetaSystem.cpp" />
     <ClCompile Include="src\dllmain.cpp" />
+    <ClCompile Include="src\dump\dumpAll.cpp" />
+    <ClCompile Include="src\dump\dumpDeclGroup.cpp" />
+    <ClCompile Include="src\dump\dumpRawJson.cpp" />
     <ClCompile Include="src\mod.cpp" />
     <ClCompile Include="src\sky\fakeMetaSystem.cpp" />
     <ClCompile Include="src\sky\getMetaClassByName.cpp" />
@@ -123,7 +125,7 @@
       <PrecompiledHeaderFile />
       <PrecompiledHeaderOutputFile />
       <EnableEnhancedInstructionSet>AdvancedVectorExtensions2</EnableEnhancedInstructionSet>
-      <AdditionalIncludeDirectories>$(projectDir)libraries\htmodloader\includes\htmodloader\;$(projectDir)libraries\that-sky-engine\src\Code\Base\;$(projectDir)libraries\that-sky-engine\\libraries\lua\;$(projectDir)\src\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(projectDir)libraries\htmodloader\includes\cJSON;$(projectDir)libraries\htmodloader\includes\htmodloader\;$(projectDir)libraries\that-sky-engine\src\Code\Base\;$(projectDir)libraries\that-sky-engine\\libraries\lua\;$(projectDir)\src\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -158,7 +160,7 @@
       <PrecompiledHeaderFile />
       <PrecompiledHeaderOutputFile />
       <EnableEnhancedInstructionSet>AdvancedVectorExtensions2</EnableEnhancedInstructionSet>
-      <AdditionalIncludeDirectories>$(projectDir)libraries\htmodloader\includes\htmodloader\;$(projectDir)libraries\that-sky-engine\src\Code\Base\;$(projectDir)libraries\that-sky-engine\\libraries\lua\;$(projectDir)\src\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(projectDir)libraries\htmodloader\includes\cJSON;$(projectDir)libraries\htmodloader\includes\htmodloader\;$(projectDir)libraries\that-sky-engine\src\Code\Base\;$(projectDir)libraries\that-sky-engine\\libraries\lua\;$(projectDir)\src\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>

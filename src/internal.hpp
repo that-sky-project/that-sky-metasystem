@@ -6,7 +6,8 @@
 #include <unordered_map>
 #include <vector>
 #include <sstream>
-#include "includes/htmodloader.h"
+#include <includes/htmodloader.h>
+#include <cJSON.h>
 #include "Meta.hpp"
 
 // ----------------------------------------------------------------------------
@@ -54,6 +55,10 @@ public:
   void dumpTree(
     std::ostringstream &s
   ) const;
+
+  const MetaSystemDataContainer &getContainer() const {
+    return container;
+  }
   
 private:
   void recursiveChild(
@@ -67,6 +72,25 @@ private:
   std::map<TgcString, const MetaClass *> registeredClasses;
   std::map<TgcString, std::vector<TgcString>> registeredTree;
 };
+
+// ----------------------------------------------------------------------------
+// [SECTION] dumper/functions
+// ----------------------------------------------------------------------------
+
+namespace MetaDumper {
+
+void readVersions();
+
+cJSON *dumpRawJson(
+  const MetaSystemDataContainer &container);
+
+cJSON *dumpDeclGroup(
+  const MetaSystemDataContainer &container);
+
+void dumpAll(
+  const MetaSystemDataContainer &container);
+
+}
 
 // ----------------------------------------------------------------------------
 // [SECTION] utils/fakeMetaSystem
@@ -92,5 +116,7 @@ public:
 
 extern HMODULE hModuleDll;
 extern RealMetaSystem gRealMetaSystem;
+extern u32 gEngineVersion[3];
+extern u32 gResourceVersion;
 
 #endif

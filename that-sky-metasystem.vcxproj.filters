@@ -10,6 +10,9 @@
     <Filter Include="src\sky">
       <UniqueIdentifier>{54001436-4119-48a2-9990-37525b482f87}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\dump">
+      <UniqueIdentifier>{9a07ca9d-7085-4b87-b283-dfa5a21d5519}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\internal.hpp">
@@ -19,9 +22,6 @@
   <ItemGroup>
     <ClCompile Include="src\mod.cpp">
       <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="src\classes\metaClass.cpp">
-      <Filter>src\classes</Filter>
     </ClCompile>
     <ClCompile Include="src\sky\fakeMetaSystem.cpp">
       <Filter>src\sky</Filter>
@@ -34,6 +34,15 @@
     </ClCompile>
     <ClCompile Include="src\classes\realMetaSystem.cpp">
       <Filter>src\classes</Filter>
+    </ClCompile>
+    <ClCompile Include="src\dump\dumpAll.cpp">
+      <Filter>src\dump</Filter>
+    </ClCompile>
+    <ClCompile Include="src\dump\dumpDeclGroup.cpp">
+      <Filter>src\dump</Filter>
+    </ClCompile>
+    <ClCompile Include="src\dump\dumpRawJson.cpp">
+      <Filter>src\dump</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

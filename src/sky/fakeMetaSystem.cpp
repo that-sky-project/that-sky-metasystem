@@ -22,17 +22,9 @@ static void hook_MetaSystem_Initialize(
   FakeMetaSystem *self
 ) {
   ((PFN_MetaSystem_Initialize)sfn_MetaSystem_Initialize.origin)(self);
-
   gRealMetaSystem.initialize(self);
 
-  return;
-
-  std::ostringstream oss;
-  gRealMetaSystem.dumpTree(oss);
-
-  std::ofstream ofs("exports.txt");
-  ofs << oss.str();
-  ofs.close();
+  MetaDumper::dumpAll(gRealMetaSystem.getContainer());
 }
 
 void FakeMetaSystem::initialize() {
