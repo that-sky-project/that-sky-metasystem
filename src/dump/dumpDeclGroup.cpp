@@ -139,19 +139,15 @@ cJSON *MetaDumper::dumpDeclGroup(
     LPCMetaType type = nullptr;
 
     // Look for Enum_Type metadata.
-    for (MetaDataClass *p = (MetaDataClass *)itmc.second->GetFields(); p; p = p->GetPrev()) {
-      if (strcmp(p->GetName(), "Enum_Type"))
-        continue;
-
-      const auto &it = container.m_metaTypes.find((cstring)p->GetFields());
-      if (it == container.m_metaTypes.end())
-        break;
-
-      type = it->second;
+    cstring enumType = itmc.second->GetMetaData("Enum_Type");
+    if (enumType) {
+      const auto &it = container.m_metaTypes.find(enumType);
+      if (it != container.m_metaTypes.end())
+        type = it->second;
     }
+
     if (!type)
       type = itmc.second->GetType();
-
 
     if (!type->IsNumber())
       continue;

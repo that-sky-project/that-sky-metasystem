@@ -8,7 +8,7 @@
 #include <sstream>
 #include <includes/htmodloader.h>
 #include <cJSON.h>
-#include "Meta.hpp"
+#include "Base/Meta.hpp"
 
 // ----------------------------------------------------------------------------
 // [SECTION] utils/typeAliases
