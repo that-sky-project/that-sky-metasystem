@@ -7,8 +7,8 @@
 #include <vector>
 #include <sstream>
 #include "includes/htmodloader.h"
-#include "Meta.hpp"
-#include "StlAllocator.hpp"
+#include "Base/Meta.hpp"
+#include "Utils/StlAllocator.hpp"
 
 // ----------------------------------------------------------------------------
 // [SECTION] utils/typeAliases

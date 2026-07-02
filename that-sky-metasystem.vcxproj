@@ -127,7 +127,7 @@
       <PrecompiledHeaderFile />
       <PrecompiledHeaderOutputFile />
       <EnableEnhancedInstructionSet>AdvancedVectorExtensions2</EnableEnhancedInstructionSet>
-      <AdditionalIncludeDirectories>$(projectDir)libraries\htmodloader\includes\htmodloader\;$(projectDir)libraries\that-sky-engine\src\Code\Base\;$(projectDir)libraries\that-sky-engine\\libraries\lua\;$(projectDir)\src\;$(projectDir)\src\proto;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(projectDir)libraries\htmodloader\includes\htmodloader\;$(projectDir)libraries\that-sky-engine\src\Code\;$(projectDir)libraries\that-sky-engine\\libraries\lua\;$(projectDir)\src\;$(projectDir)\src\proto;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
     </ClCompile>
     <Link>
@@ -163,7 +163,7 @@
       <PrecompiledHeaderFile />
       <PrecompiledHeaderOutputFile />
       <EnableEnhancedInstructionSet>AdvancedVectorExtensions2</EnableEnhancedInstructionSet>
-      <AdditionalIncludeDirectories>$(projectDir)libraries\htmodloader\includes\htmodloader\;$(projectDir)libraries\that-sky-engine\src\Code\Base\;$(projectDir)libraries\that-sky-engine\\libraries\lua\;$(projectDir)\src\;$(projectDir)\src\proto;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(projectDir)libraries\htmodloader\includes\htmodloader\;$(projectDir)libraries\that-sky-engine\src\Code\;$(projectDir)libraries\that-sky-engine\\libraries\lua\;$(projectDir)\src\;$(projectDir)\src\proto;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
     </ClCompile>
     <Link>

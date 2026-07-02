@@ -45,6 +45,6 @@ void FakeMetaSystem::initialize() {
 FakeMetaSystem::FakeMetaSystem(
   const MetaSystem *original
 )
-  : metaClassId(original->m_metaClassId)
+  : metaClassId(original->GetMetaClassId())
   , data(original->m_data)
 { }

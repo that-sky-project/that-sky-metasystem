@@ -19,14 +19,14 @@ void RealMetaSystem::initialize(
 void RealMetaSystem::addClass(
   const MetaClass *clazz
 ) {
-  registeredClasses[clazz->m_name] = clazz;
+  registeredClasses[clazz->GetName()] = clazz;
 }
 
 void RealMetaSystem::addChild(
   const MetaClass *parent,
   const MetaClass *child
 ) {
-  registeredTree[parent->m_name].push_back(child->m_name);
+  registeredTree[parent->GetName()].push_back(child->GetName());
 }
 
 void RealMetaSystem::dumpTree(
@@ -60,7 +60,7 @@ void RealMetaSystem::recursiveChild(
     parent = it->second->m_parent();
 
   if (parent)
-    recursiveChild(s, parent->m_name, visitState);
+    recursiveChild(s, parent->GetName(), visitState);
 
   if (visitState[className])
     return;
@@ -68,7 +68,7 @@ void RealMetaSystem::recursiveChild(
   s << "class " << className;
 
   if (parent)
-    s << ": public " << parent->m_name;
+    s << ": public " << parent->GetName();
 
   s << " { };\n";
 

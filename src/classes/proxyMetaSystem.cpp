@@ -63,21 +63,22 @@ bool ProxyMetaSystem::addClass(
   // 
   // Thus, an external module only needs to declare an "empty" metaclass with the
   // same name to use the metaclass of its dependency.
-  const auto &itClass = m_data->m_metaTypes.find(clazz->m_name);
+  const auto &itClass = m_data->m_metaTypes.find(clazz->GetName());
   if (itClass != m_data->m_metaTypes.end()) {
-    clazz->m_self = itClass->second;
+    clazz->SetActive(itClass->second);
     return true;
   }
 
   if (!clazz->AsClass())
     return false;
 
-  char *name = new char[strlen(clazz->m_name) + 1];
-  strcpy(name, clazz->m_name);
+  char *name = new char[strlen(clazz->GetName()) + 1];
+  strcpy(name, clazz->GetName());
 
   auto *mc = (MetaClass *)clazz->Copy();
-  mc->m_name = name;
-  mc->m_self = clazz->m_self = mc;
+  mc->SetName(name);
+  mc->SetActive(mc);
+  clazz->SetActive(mc);
   mc->m_globalId = m_data->m_count++;
   if (mc->m_metaDataContainer)
     delete mc->m_metaDataContainer;
@@ -85,8 +86,8 @@ bool ProxyMetaSystem::addClass(
 
   m_classes[mc->m_globalId] = mc;
 
-  m_data->m_metaTypes[clazz->m_name] = mc;
-  m_data->m_metaClasses[clazz->m_name] = mc;
+  m_data->m_metaTypes[clazz->GetName()] = mc;
+  m_data->m_metaClasses[clazz->GetName()] = mc;
 
   return true;
 }
