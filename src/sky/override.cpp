@@ -21,11 +21,24 @@ public:
 
   void TestFunc() {
     HTTellText("TestFunc lol");
+    HTTellText("  context1 = %d", context1);
+    HTTellText("  context2 = %d", context2);
   }
+
+  void TestFunc2(int a, cstring b) {
+    HTTellText("TestFunc2 with params: a = %d, b = \"%s\"", a, b);
+  }
+
+public:
+  bool context1 = false;
+  int context2 = 0;
 };
 
-META_REGISTER_CLASS(HTFakeEvent)
+META_REGISTER_CLASS(HTFakeEvent, MetaClassImpl<Event>::Must_call_META_REGISTER_CLASS)
 META_REGISTER_FUNCTION_MEMBER(HTFakeEvent, TestFunc)
+META_REGISTER_FUNCTION_MEMBER(HTFakeEvent, TestFunc2)
+META_REGISTER_SIMPLE_MEMBER(HTFakeEvent, context1)
+META_REGISTER_SIMPLE_MEMBER(HTFakeEvent, context2)
 
 
 typedef void (__fastcall *PFN_Game_Alloc)(
@@ -115,7 +128,9 @@ static void hook_Game_Alloc(
 
   // Override Game.metaSystem.
   const MetaMemberVariable *pmmvMetaSystem = itVars->second;
-  ProxyMetaSystem **ppGameMetaSystem = (ProxyMetaSystem **)((char *)self + pmmvMetaSystem->GetContext().offset);
+  //ProxyMetaSystem **ppGameMetaSystem = (ProxyMetaSystem **)((char *)self + pmmvMetaSystem->GetContext().offset);
+  ProxyMetaSystem **ppGameMetaSystem = 
+    &(self->*rcast<ProxyMetaSystem *Game::*>(pmmvMetaSystem->Address()));
 
   // Create ProxyMetaSystem from MetaSystem.
   gProxyMetaSystem = ProxyMetaSystem::create();
@@ -141,28 +156,15 @@ static void hook_Game_Alloc(
 
   *ppGameMetaSystem = gProxyMetaSystem;
 
-  {
-    // - Try to register a new event.
-    const auto &itEvent = gProxyMetaSystem->m_data->m_metaClasses.find("Event");
-    static auto eventClass = itEvent->second;
-    auto pmcEvent = MetaClassImpl<HTFakeEvent>::Must_call_META_REGISTER_CLASS();
-    pmcEvent->m_parent = []() -> MetaClass * {
-      return eventClass;
-    };
-    pmcEvent->m_topoOrder = 9000;
-    pmcEvent->m_baseTopoIdList = eventClass->m_baseTopoIdList;
-    pmcEvent->m_baseTopoIdList.push_back(eventClass->m_topoOrder);
-    if (!gProxyMetaSystem->addClass(pmcEvent))
-      __debugbreak();
+  // - Try to register a new event.
+  LPMetaClass pmcEvent = MetaClassImpl<HTFakeEvent>::Must_call_META_REGISTER_CLASS();
+  pmcEvent->m_topoOrder = 9000;
+  pmcEvent->m_baseTopoIdList = GetMetaClassByType<Event *>()->m_baseTopoIdList;
+  pmcEvent->m_baseTopoIdList.push_back(GetMetaClassByType<Event *>()->m_topoOrder);
 
-    // - Add member function.
-    char *name = new char[strlen(g_metaMemberFunction_HTFakeEvent_TestFunc.GetName()) + 1];
-    strcpy(name, g_metaMemberFunction_HTFakeEvent_TestFunc.GetName());
-    HTTellText("%s", name);
-    g_metaMemberFunction_HTFakeEvent_TestFunc.Initialize();
-    pmcEvent->GetActive()->AsClass()->m_metaDataContainer->m_functions[name]
-      = &g_metaMemberFunction_HTFakeEvent_TestFunc;
-  }
+  gProxyMetaSystem->submitChain(MetaObject<MetaType>::m_List());
+  gProxyMetaSystem->submitChain(MetaObject<MetaMemberFunction>::m_List());
+  gProxyMetaSystem->submitChain(MetaObject<MetaMemberVariable>::m_List());
 
   ((PFN_Game_Alloc)sfn_Game_Alloc.origin)(self);
 }

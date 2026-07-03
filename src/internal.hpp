@@ -32,7 +32,7 @@ using TgcString = std::string;
 using TgcWString = std::wstring;
 using cstring = const char *;
 
-typedef void *Game;
+class Game { };
 
 // ----------------------------------------------------------------------------
 // [SECTION] utils/realMetaSystem
@@ -113,9 +113,15 @@ public:
 
   ProxyMetaSystem() = default;
   ~ProxyMetaSystem() = default;
+  
+  bool submitChain(
+    LPMetaType chain);
 
-  bool addClass(
-    MetaClass *clazz);
+  bool submitChain(
+    MetaMemberFunction *chain);
+
+  bool submitChain(
+    MetaMemberVariable *chain);
   
   void set(
     const MetaSystem *p,

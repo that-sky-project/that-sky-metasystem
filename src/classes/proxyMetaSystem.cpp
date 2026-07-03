@@ -44,50 +44,108 @@ void ProxyMetaSystem::set(
   m_data->m_count = count;
 }
 
-bool ProxyMetaSystem::addClass(
-  MetaClass *clazz
+bool ProxyMetaSystem::submitChain(
+  LPMetaType chain
 ) {
   if (!m_data)
     return false;
 
-  // To make it easier for a mod to register metaclasses for its dependencies,
-  // we stipulate: if a metaclass with the same name already exists in the registry,
-  // only set the input metaclass's m_self. Since almost all metaclass operations
-  // must be performed via Must_call_META_REGISTER_CLASS or GetMetaClassByType
-  // (i.e., through m_self), all metaclass operations can be forwarded to the
-  // existing metaclass.
-  // 
-  // Furthermore, because a dependent module is always loaded after its dependency,
-  // and a child class is always loaded after its parent class, this initialization
-  // process is guaranteed to be stable.
-  // 
-  // Thus, an external module only needs to declare an "empty" metaclass with the
-  // same name to use the metaclass of its dependency.
-  const auto &itClass = m_data->m_metaTypes.find(clazz->GetName());
-  if (itClass != m_data->m_metaTypes.end()) {
-    clazz->SetActive(itClass->second);
-    return true;
+  for (auto p = chain; p; p = p->GetPrev()) {
+    // To make it easier for a mod to register MetaType for its dependencies,
+    // we stipulate: if a MetaType with the same name already exists in the registry,
+    // only set the input MetaType's m_self. Since almost all MetaType operations
+    // must be performed via Must_call_META_REGISTER_CLASS or GetMetaTypeByType
+    // (i.e., through m_self), all MetaType operations can be forwarded to the
+    // existing MetaType.
+    // 
+    // Furthermore, because a dependent module is always loaded after its dependency,
+    // and a child class is always loaded after its parent class, this initialization
+    // process is guaranteed to be stable.
+    // 
+    // Thus, an external module only needs to declare an "empty" MetaType with the
+    // same name to use the MetaType of its dependency.
+    cstring name = p->GetName();
+    const auto &itType = m_data->m_metaTypes.find(name);
+    if (itType != m_data->m_metaTypes.end()) {
+      p->SetActive(itType->second);
+      continue;
+    }
+
+    // Copy the name string for easy searching.
+    size_t l = strlen(name) + 1;
+    char *s = new char[l];
+    strncpy(s, p->GetName(), l);
+
+    // Copy the MetaType (or MetaClass).
+    auto mt = p->Copy();
+    mt->SetName(s);
+    mt->SetActive(mt);
+    p->SetActive(mt);
+
+    m_data->m_metaTypes[mt->GetName()] = mt;
+  
+    if (!p->AsClass())
+      continue;
+
+    auto mc = (MetaClass *)mt;
+    mc->m_globalId = m_data->m_count++;
+    if (mc->m_metaDataContainer)
+      delete mc->m_metaDataContainer;
+    mc->m_metaDataContainer = new MetaDataContainer();
+
+    m_classes[mc->m_globalId] = mc;
+
+    m_data->m_metaClasses[mt->GetName()] = mc;
   }
 
-  if (!clazz->AsClass())
+  return true;
+}
+
+bool ProxyMetaSystem::submitChain(
+  MetaMemberFunction *chain
+) {
+  if (!m_data)
     return false;
 
-  char *name = new char[strlen(clazz->GetName()) + 1];
-  strcpy(name, clazz->GetName());
+  for (auto p = chain; p; p = p->GetPrev()) {
+    cstring name = p->GetName();
+    p->Initialize();
 
-  auto *mc = (MetaClass *)clazz->Copy();
-  mc->SetName(name);
-  mc->SetActive(mc);
-  clazz->SetActive(mc);
-  mc->m_globalId = m_data->m_count++;
-  if (mc->m_metaDataContainer)
-    delete mc->m_metaDataContainer;
-  mc->m_metaDataContainer = new MetaDataContainer();
+    // Copy the name string for easy searching.
+    size_t l = strlen(name) + 1;
+    char *s = new char[l];
+    strncpy(s, p->GetName(), l);
 
-  m_classes[mc->m_globalId] = mc;
+    auto &store = p->GetClass()->m_metaDataContainer->m_functions;
+    if (store.find(name) != store.end())
+      continue;
 
-  m_data->m_metaTypes[clazz->GetName()] = mc;
-  m_data->m_metaClasses[clazz->GetName()] = mc;
+    store.emplace(name, new MetaMemberFunction(*p));
+  }
+
+  return true;
+}
+
+bool ProxyMetaSystem::submitChain(
+  MetaMemberVariable *chain
+) {
+  if (!m_data)
+    return false;
+
+  for (auto p = chain; p; p = p->GetPrev()) {
+    cstring name = p->GetName();
+
+    // Copy the name string for easy searching.
+    size_t l = strlen(name) + 1;
+    char *s = new char[l];
+    strncpy(s, p->GetName(), l);
+
+    auto &store = p->GetClass()->m_metaDataContainer->m_variables;
+    if (store.find(name) != store.end())
+      continue;
+
+    store.emplace(name, new MetaMemberVariable(*p));
+  }
 
   return true;
 }
