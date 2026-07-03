@@ -32,6 +32,8 @@ public:
 public:
   bool context1 = false;
   int context2 = 0;
+  int array1[10] = {520};
+  int array1_count = 1;
 };
 
 META_REGISTER_CLASS(HTFakeEvent, MetaClassImpl<Event>::Must_call_META_REGISTER_CLASS)
@@ -39,6 +41,8 @@ META_REGISTER_FUNCTION_MEMBER(HTFakeEvent, TestFunc)
 META_REGISTER_FUNCTION_MEMBER(HTFakeEvent, TestFunc2)
 META_REGISTER_SIMPLE_MEMBER(HTFakeEvent, context1)
 META_REGISTER_SIMPLE_MEMBER(HTFakeEvent, context2)
+META_REGISTER_SIMPLE_MEMBER(HTFakeEvent, array1_count)
+META_REGISTER_ARRAY_MEMBER(HTFakeEvent, array1, array1_count)
 
 
 typedef void (__fastcall *PFN_Game_Alloc)(
@@ -166,10 +170,12 @@ static void hook_Game_Alloc(
   gProxyMetaSystem->submitChain(MetaObject<MetaMemberFunction>::m_List());
   gProxyMetaSystem->submitChain(MetaObject<MetaMemberVariable>::m_List());
 
+  MetaSystem::SetMetaSystem(rcast<MetaSystem *>(gProxyMetaSystem));
+
   ((PFN_Game_Alloc)sfn_Game_Alloc.origin)(self);
 }
 
-static const MetaClass *hook_GetMetaClassById(
+static LPCMetaClass hook_GetMetaClassById(
   u32 id
 ) {
   if (!gProxyMetaSystem)
@@ -181,7 +187,7 @@ static const MetaClass *hook_GetMetaClassById(
   return gProxyMetaSystem->m_classes[id];
 }
 
-static const MetaClass *hook_GetMetaClassByName(
+static LPCMetaClass hook_GetMetaClassByName(
   cstring name,
   bool isConstString
 ) {
@@ -215,4 +221,17 @@ void MetaSystemOverride::initialize() {
   HTModLoader::createHookAndEnable(
     &sigE8_GetMetaClassByName,
     &sfn_GetMetaClassByName);
+}
+
+LPCMetaClass GetMetaClassById(
+  u32 id
+) {
+  return hook_GetMetaClassById(id);
+}
+
+LPCMetaClass GetMetaClassByName(
+  cstring name,
+  bool constString
+) {
+  return hook_GetMetaClassByName(name, constString);
 }
