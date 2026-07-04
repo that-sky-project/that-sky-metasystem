@@ -127,6 +127,12 @@ public:
     const MetaSystem *p,
     u32 count);
 
+private:
+  void m_recursiveSort(
+    LPMetaClass mc,
+    int *pTopologyCounter);
+
+public:
   u32 m_metaClassId;
   ProxyMetaSystemDataContainer *m_data;
   const MetaClass *m_classes[];

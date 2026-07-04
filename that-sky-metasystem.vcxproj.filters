@@ -13,6 +13,9 @@
     <Filter Include="src\proto">
       <UniqueIdentifier>{dd17c2cd-781a-47cf-b867-c09e925867e6}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\ugc">
+      <UniqueIdentifier>{33dd6156-527b-43f0-a73b-760dc90fc6f7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\internal.hpp">
@@ -20,6 +23,12 @@
     </ClInclude>
     <ClInclude Include="src\proto\proto.hpp">
       <Filter>src\proto</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ugc\trigger.hpp">
+      <Filter>src\ugc</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ugc\htfakeevent.hpp">
+      <Filter>src\ugc</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -49,6 +58,12 @@
     </ClCompile>
     <ClCompile Include="src\proto\event.cpp">
       <Filter>src\proto</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ugc\htfakeevent.cpp">
+      <Filter>src\ugc</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ugc\trigger.cpp">
+      <Filter>src\ugc</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

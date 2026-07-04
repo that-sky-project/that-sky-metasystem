@@ -21,6 +21,8 @@
   <ItemGroup>
     <ClInclude Include="src\internal.hpp" />
     <ClInclude Include="src\proto\proto.hpp" />
+    <ClInclude Include="src\ugc\htfakeevent.hpp" />
+    <ClInclude Include="src\ugc\trigger.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\classes\metaClass.cpp" />
@@ -32,6 +34,8 @@
     <ClCompile Include="src\sky\fakeMetaSystem.cpp" />
     <ClCompile Include="src\sky\getMetaClassByName.cpp" />
     <ClCompile Include="src\sky\override.cpp" />
+    <ClCompile Include="src\ugc\htfakeevent.cpp" />
+    <ClCompile Include="src\ugc\trigger.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>
@@ -95,11 +99,13 @@
     <OutDir>$(ProjectDir)dist/</OutDir>
     <IntDir>$(ProjectDir)dist/</IntDir>
     <TargetName>that-sky-metasystem</TargetName>
+    <LinkIncremental>false</LinkIncremental>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <OutDir>$(ProjectDir)dist/</OutDir>
     <IntDir>$(ProjectDir)dist/</IntDir>
     <TargetName>that-sky-metasystem</TargetName>
+    <LinkIncremental>false</LinkIncremental>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -127,7 +133,7 @@
       <PrecompiledHeaderFile />
       <PrecompiledHeaderOutputFile />
       <EnableEnhancedInstructionSet>AdvancedVectorExtensions2</EnableEnhancedInstructionSet>
-      <AdditionalIncludeDirectories>$(projectDir)libraries\htmodloader\includes\htmodloader\;$(projectDir)libraries\that-sky-engine\src\Code\;$(projectDir)libraries\that-sky-engine\\libraries\lua\;$(projectDir)\src\;$(projectDir)\src\proto;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(projectDir)libraries\htmodloader\includes\htmodloader\;$(projectDir)libraries\that-sky-engine\src\Code\;$(projectDir)libraries\that-sky-engine\\libraries\lua\;$(projectDir)\src\;$(projectDir)\src\proto;$(projectDir)\src\ugc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
     </ClCompile>
     <Link>
@@ -163,7 +169,7 @@
       <PrecompiledHeaderFile />
       <PrecompiledHeaderOutputFile />
       <EnableEnhancedInstructionSet>AdvancedVectorExtensions2</EnableEnhancedInstructionSet>
-      <AdditionalIncludeDirectories>$(projectDir)libraries\htmodloader\includes\htmodloader\;$(projectDir)libraries\that-sky-engine\src\Code\;$(projectDir)libraries\that-sky-engine\\libraries\lua\;$(projectDir)\src\;$(projectDir)\src\proto;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(projectDir)libraries\htmodloader\includes\htmodloader\;$(projectDir)libraries\that-sky-engine\src\Code\;$(projectDir)libraries\that-sky-engine\\libraries\lua\;$(projectDir)\src\;$(projectDir)\src\proto;$(projectDir)\src\ugc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
     </ClCompile>
     <Link>

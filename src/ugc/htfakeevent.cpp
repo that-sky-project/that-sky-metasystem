@@ -1,0 +1,9 @@
+#include "htfakeevent.hpp"
+
+META_REGISTER_CLASS(HTFakeEvent, MetaClassImpl<Event>::Must_call_META_REGISTER_CLASS)
+META_REGISTER_FUNCTION_MEMBER(HTFakeEvent, TestFunc)
+META_REGISTER_FUNCTION_MEMBER(HTFakeEvent, TestFunc2)
+META_REGISTER_SIMPLE_MEMBER(HTFakeEvent, context1)
+META_REGISTER_SIMPLE_MEMBER(HTFakeEvent, context2)
+META_REGISTER_SIMPLE_MEMBER(HTFakeEvent, array1_count)
+META_REGISTER_ARRAY_MEMBER(HTFakeEvent, array1, array1_count)

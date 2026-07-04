@@ -98,6 +98,13 @@ bool ProxyMetaSystem::submitChain(
     m_data->m_metaClasses[mt->GetName()] = mc;
   }
 
+  i32 topoId = -2147483648;
+  for (auto p = chain; p; p = p->GetPrev()) {
+    if (!p->GetActive()->AsClass())
+      continue;
+    m_recursiveSort((LPMetaClass)p->GetActive(), &topoId);
+  }
+
   return true;
 }
 
@@ -148,4 +155,35 @@ bool ProxyMetaSystem::submitChain(
   }
 
   return true;
+}
+
+void ProxyMetaSystem::m_recursiveSort(
+  LPMetaClass mc,
+  i32 *topoId
+)  {
+  if (mc->m_topoOrder != -1)
+    return;
+
+  if (mc->m_parent)
+    m_recursiveSort(mc->m_parent(), topoId);
+
+  mc->m_baseTopoIdList.clear();
+
+  if (mc->m_parent) {
+    LPMetaClass superClass = mc->m_parent();
+
+    if (superClass->m_topoOrder == -1) {
+      i32 id = *topoId;
+      superClass->m_topoOrder = id;
+      superClass->m_baseTopoIdList.push_back(id);
+      *topoId++;
+    }
+
+    if (superClass != mc) {
+      mc->m_baseTopoIdList.insert(
+        mc->m_baseTopoIdList.end(),
+        superClass->m_baseTopoIdList.begin(),
+        superClass->m_baseTopoIdList.end());
+    }
+  }
 }

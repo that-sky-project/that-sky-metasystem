@@ -2,48 +2,8 @@
 #include "internal.hpp"
 #include "proto.hpp"
 
-class HTFakeEvent;
-META_DECLARE_CLASS(HTFakeEvent);
-
-class HTFakeEvent: public Event {
-public:
-  HTFakeEvent() {
-    m_metaClassId = MetaClassImpl<HTFakeEvent>::Must_call_META_REGISTER_CLASS()->m_globalId;
-  }
-
-  virtual void OnStart(void *) override {
-    HTTellText("aaa");
-  }
-
-  virtual void Update(void *) override {
-    HTTellText("update...");
-  }
-
-  void TestFunc() {
-    HTTellText("TestFunc lol");
-    HTTellText("  context1 = %d", context1);
-    HTTellText("  context2 = %d", context2);
-  }
-
-  void TestFunc2(int a, cstring b) {
-    HTTellText("TestFunc2 with params: a = %d, b = \"%s\"", a, b);
-  }
-
-public:
-  bool context1 = false;
-  int context2 = 0;
-  int array1[10] = {520};
-  int array1_count = 1;
-};
-
-META_REGISTER_CLASS(HTFakeEvent, MetaClassImpl<Event>::Must_call_META_REGISTER_CLASS)
-META_REGISTER_FUNCTION_MEMBER(HTFakeEvent, TestFunc)
-META_REGISTER_FUNCTION_MEMBER(HTFakeEvent, TestFunc2)
-META_REGISTER_SIMPLE_MEMBER(HTFakeEvent, context1)
-META_REGISTER_SIMPLE_MEMBER(HTFakeEvent, context2)
-META_REGISTER_SIMPLE_MEMBER(HTFakeEvent, array1_count)
-META_REGISTER_ARRAY_MEMBER(HTFakeEvent, array1, array1_count)
-
+#include "trigger.hpp"
+#include "htfakeevent.hpp"
 
 typedef void (__fastcall *PFN_Game_Alloc)(
   Game *);
@@ -138,9 +98,16 @@ static void hook_Game_Alloc(
 
   // Create ProxyMetaSystem from MetaSystem.
   gProxyMetaSystem = ProxyMetaSystem::create();
+
+  // Subtract 15 from the calculated maximum number of classes so that the UIDs of
+  // newly added metaclasses are less than 2560.
+  //
+  // WARN: This is an unsafe and highly incompatible implementation, intended for
+  // use in this example only. Do not use it in actual development.
   gProxyMetaSystem->set(
     reinterpret_cast<const MetaSystem *>(gMetaSystem),
-    classCount);
+    classCount - 15);
+
   HTTellText(
     "§a[ThatSkyMetaSystem] MetaSystem overriden: %p -> %p",
     *ppGameMetaSystem,
@@ -160,12 +127,7 @@ static void hook_Game_Alloc(
 
   *ppGameMetaSystem = gProxyMetaSystem;
 
-  // - Try to register a new event.
-  LPMetaClass pmcEvent = MetaClassImpl<HTFakeEvent>::Must_call_META_REGISTER_CLASS();
-  pmcEvent->m_topoOrder = 9000;
-  pmcEvent->m_baseTopoIdList = GetMetaClassByType<Event *>()->m_baseTopoIdList;
-  pmcEvent->m_baseTopoIdList.push_back(GetMetaClassByType<Event *>()->m_topoOrder);
-
+  // - Register new metadata.
   gProxyMetaSystem->submitChain(MetaObject<MetaType>::m_List());
   gProxyMetaSystem->submitChain(MetaObject<MetaMemberFunction>::m_List());
   gProxyMetaSystem->submitChain(MetaObject<MetaMemberVariable>::m_List());
@@ -222,7 +184,7 @@ void MetaSystemOverride::initialize() {
     &sigE8_GetMetaClassByName,
     &sfn_GetMetaClassByName);
 }
-
+/*
 LPCMetaClass GetMetaClassById(
   u32 id
 ) {
@@ -235,3 +197,4 @@ LPCMetaClass GetMetaClassByName(
 ) {
   return hook_GetMetaClassByName(name, constString);
 }
+*/
